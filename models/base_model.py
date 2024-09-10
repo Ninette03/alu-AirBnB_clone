@@ -6,7 +6,7 @@ models in the AirBnB clone project.
 
 import uuid
 from datetime import datetime
-from . import storage
+from models import storage
 
 class BaseModel:
     """
