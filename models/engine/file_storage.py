@@ -12,6 +12,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+
 class FileStorage:
     """
     FileStorage class that serializes instances to a JSON file and
@@ -32,7 +33,8 @@ class FileStorage:
 
     def save(self):
         """Serializes __objects to the JSON file (path: __file_path)"""
-        serialized_objects = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
+        serialized_objects = {k: v.to_dict()
+                              for k, v in FileStorage.__objects.items()}
         with open(FileStorage.__file_path, 'w') as file:
             json.dump(serialized_objects, file)
 
