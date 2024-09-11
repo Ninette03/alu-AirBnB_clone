@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This module defines the FileStorage class for serializing and deserializing objects.
+This module defines FileStorage class for serializing & deserializing objects.
 """
 
 from models import storage
