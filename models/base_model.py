@@ -11,13 +11,12 @@ from models import storage
 
 class BaseModel:
     """
-    BaseModel class that defines all common attributes/methods for other classes.
+    BaseModel class that defines all common attributes/methods for other class
     """
 
     def __init__(self, *args, **kwargs):
         """
         Initialize a new BaseModel instance.
-
         Args:
             *args: Not used.
             **kwargs: Dictionary of attributes to initialize the instance with.
