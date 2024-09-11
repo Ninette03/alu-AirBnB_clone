@@ -13,6 +13,7 @@ class BaseModel:
     """
     BaseModel class that defines all common attributes/methods for other class
     """
+
     def __init__(self, *args, **kwargs):
         """
         Initialize a new BaseModel instance.
@@ -32,8 +33,7 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             storage.new(self)
-    
-    
+
     def __str__(self):
         """
         Return a string representation of the BaseModel instance.
@@ -56,7 +56,8 @@ class BaseModel:
         obj_dict['created_at'] = self.created_at.isoformat()
         obj_dict['updated_at'] = self.updated_at.isoformat()
         return obj_dict
-    
+
+
 my_model = BaseModel()
 my_model.name = "My First Model"
 my_model.my_number = 89
@@ -67,4 +68,5 @@ my_model_json = my_model.to_dict()
 print(my_model_json)
 print("JSON of my_model:")
 for key in my_model_json.keys():
-    print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
+    print("\t{}: ({}) - {}".format(key,
+          type(my_model_json[key]), my_model_json[key]))

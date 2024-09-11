@@ -3,6 +3,7 @@
 This module defines the FileStorage class for serializing and deserializing objects.
 """
 
+from models import storage
 import json
 from models.base_model import BaseModel
 from models.user import User
@@ -11,6 +12,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+
 
 class FileStorage:
     """
@@ -32,7 +34,8 @@ class FileStorage:
 
     def save(self):
         """Serializes __objects to the JSON file (path: __file_path)"""
-        serialized_objects = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
+        serialized_objects = {k: v.to_dict()
+                              for k, v in FileStorage.__objects.items()}
         with open(FileStorage.__file_path, 'w') as file:
             json.dump(serialized_objects, file)
 
@@ -49,3 +52,17 @@ class FileStorage:
                     self.new(globals()[class_name](**value))
         except FileNotFoundError:
             pass
+
+
+all_objs = storage.all()
+print("-- Reloaded objects --")
+for obj_id in all_objs.keys():
+    obj = all_objs[obj_id]
+    print(obj)
+
+print("-- Create a new object --")
+my_model = BaseModel()
+my_model.name = "My_First_Model"
+my_model.my_number = 89
+my_model.save()
+print(my_model)
