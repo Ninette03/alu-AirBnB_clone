@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 """ User class """
 
-from models import storage
-from models.user import User
 from models.base_model import BaseModel
 
 
