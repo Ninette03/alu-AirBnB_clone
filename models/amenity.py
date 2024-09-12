@@ -1,19 +1,19 @@
 #!/usr/bin/python3
-"""Amenity class"""
+"""
+This module contains Amenity class (Blueprint for creating Amenity objects).
+"""
 
 from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):
-    """Amenity class"""
+    """
+    This is the amenity class
+
+    Attributes:
+        name (str): The name of the amenity
+    """
     name = ""
 
-
-amenity1 = Amenity()
-amenity1.name = "Wi-Fi"
-
-amenity2 = Amenity()
-amenity2.name = "Swimming Pool"
-
-print(amenity1.__dict__)
-print(amenity2.__dict__)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)

@@ -1,20 +1,19 @@
 #!/usr/bin/python3
-""" State class """
+"""
+This module contains the State class (Blueprint for creating State objects).
+"""
 
 from models.base_model import BaseModel
 
 
 class State(BaseModel):
-    """ State class """
+    """
+    This is the state class
+
+    Attributes:
+        name (str): The name of the state
+    """
     name = ""
 
-
-state1 = State()
-state1.name = "California"
-
-state2 = State()
-state2.name = "New York"
-
-# Print state information
-print(state1.__dict__)
-print(state2.__dict__)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
