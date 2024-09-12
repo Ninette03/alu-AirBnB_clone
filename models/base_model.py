@@ -1,75 +1,61 @@
 #!/usr/bin/python3
 """
-This module defines the BaseModel class, which is the base class for all
-models in the AirBnB clone project.
+This module defines a BaseModel class that
+defines all common attributes/methods for model classes
 """
 
 import uuid
+import models
 from datetime import datetime
-import json
+
 
 class BaseModel:
     """
-    BaseModel class that defines all common attributes/methods for other class
+    This is the base model class.
     """
 
     def __init__(self, *args, **kwargs):
         """
-        Initialize a new BaseModel instance.
-        Args:
-            *args: Not used.
-            **kwargs: Dictionary of attributes to initialize the instance with.
+        Initialize public instance attributes.
         """
         if kwargs:
             for key, value in kwargs.items():
+                if key == 'created_at' or key == 'updated_at':
+                    value = datetime.fromisoformat(value)
                 if key != '__class__':
-                    if key in ['created_at', 'updated_at']:
-                        setattr(self, key, datetime.fromisoformat(value))
-                    else:
-                        setattr(self, key, value)
+                    setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            from models import storage
-            storage.new(self)
-
-    def __str__(self):
-        """
-        Return a string representation of the BaseModel instance.
-        """
-        return "[{}] ({}) {}".format(self.__class__.__name__,
-                                     self.id, self.__dict__)
+            models.storage.new(self)
 
     def save(self):
         """
-        Update the updated_at attribute with the current datetime.
+        Updates the file storage with the new/updated information.
         """
         self.updated_at = datetime.now()
-        from models import storage
-        storage.new(self)
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """
-        Return a dictionary representation of the BaseModel instance.
+        Convert the object to a dictionary representation.
+
+        Returns:
+            dict: A dictionary representation of the object.
         """
+
         obj_dict = self.__dict__.copy()
-        obj_dict['__class__'] = self.__class__.__name__
-        obj_dict['created_at'] = self.created_at.isoformat()
-        obj_dict['updated_at'] = self.updated_at.isoformat()
+        obj_dict["__class__"] = self.__class__.__name__
+        for key, value in self.__dict__.items():
+            if key == 'created_at' or key == 'updated_at':
+                value = value.isoformat()
+            obj_dict[key] = value
+
         return obj_dict
 
-
-my_model = BaseModel()
-my_model.name = "My First Model"
-my_model.my_number = 89
-print(my_model)
-my_model.save()
-print(my_model)
-my_model_json = my_model.to_dict()
-print(my_model_json)
-print("JSON of my_model:")
-for key in my_model_json.keys():
-    print("\t{}: ({}) - {}".format(key,
-          type(my_model_json[key]), my_model_json[key]))
+    def __str__(self):
+        """
+        Returns a string representation of the BaseModel class.
+        """
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"

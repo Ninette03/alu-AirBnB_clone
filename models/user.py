@@ -1,38 +1,28 @@
 #!/usr/bin/python3
-""" User class """
+"""
+This module contains the User class (Blueprint for creating user objects).
+"""
 
 from models.base_model import BaseModel
 
 
 class User(BaseModel):
-    """ User class """
+    """
+    This is the user class.
+
+    Attributes:
+        email (str): The email address of the user.
+        password (str): The password of the user.
+        first_name (str): The first name of the user.
+        last_name (str): The last name of the user.
+    """
     email = ""
     password = ""
     first_name = ""
     last_name = ""
 
-if __name__ == "__main__":
-    from models import storage
-
-    all_objs = storage.all()
-    print("-- Reloaded objects --")
-    for obj_id in all_objs.keys():
-        obj = all_objs[obj_id]
-        print(obj)
-
-    print("-- Create a new User --")
-    my_user = User()
-    my_user.first_name = "Betty"
-    my_user.last_name = "Bar"
-    my_user.email = "airbnb@mail.com"
-    my_user.password = "root"
-    my_user.save()
-    print(my_user)
-
-    print("-- Create a new User 2 --")
-    my_user2 = User()
-    my_user2.first_name = "John"
-    my_user2.email = "airbnb2@mail.com"
-    my_user2.password = "root"
-    my_user2.save()
-    print(my_user2)
+    def __init__(self, *args, **kwargs):
+        """
+        Initialize public instance attributes.
+        """
+        super().__init__(*args, **kwargs)
