@@ -3,15 +3,14 @@
 This module defines FileStorage class for serializing & deserializing objects.
 """
 
-from models import storage
 import json
-from models.base_model import BaseModel
-from models.user import User
-from models.place import Place
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.review import Review
+from models import base_model
+from models import User
+from models import Place
+from models import State
+from models import City
+from models import Amenity
+from models import Review
 
 
 class FileStorage:
@@ -52,17 +51,3 @@ class FileStorage:
                     self.new(globals()[class_name](**value))
         except FileNotFoundError:
             pass
-
-
-all_objs = storage.all()
-print("-- Reloaded objects --")
-for obj_id in all_objs.keys():
-    obj = all_objs[obj_id]
-    print(obj)
-
-print("-- Create a new object --")
-my_model = BaseModel()
-my_model.name = "My_First_Model"
-my_model.my_number = 89
-my_model.save()
-print(my_model)
